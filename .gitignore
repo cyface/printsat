@@ -22,6 +22,7 @@ reports/*
 settings_local.py
 settings_local_test.py
 settings_test_local.py
+*.sqlite3
 style-*_.css
 mediabrute_usefile
 *conflicted\ copy*

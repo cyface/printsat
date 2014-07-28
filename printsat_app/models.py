@@ -7,8 +7,8 @@ class Telemetry(models.Model):
     slug = models.SlugField()
     name = models.CharField(blank=True, max_length=255)
     station = models.CharField(max_length=20)
-    lat = models.FloatField()
-    lon = models.DecimalField()
+    lat = models.DecimalField(max_digits=10, decimal_places=5)
+    lon = models.DecimalField(max_digits=10, decimal_places=5)
     program = models.CharField(max_length=30)
     type = models.CharField(max_length=20)
     ps_time = models.DateTimeField()
@@ -127,6 +127,7 @@ class Telemetry(models.Model):
 
     class Meta(object):
         ordering = ['ps_time']
+        verbose_name_plural = "telemetry"
 
 
     def __unicode__(self):
