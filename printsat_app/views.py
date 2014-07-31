@@ -5,6 +5,7 @@ from printsat_app.models import Telemetry
 from printsat_app.forms import TelemetryUploadForm
 from django.utils.encoding import smart_str
 from django.core.urlresolvers import reverse_lazy
+from django.contrib import messages
 
 
 class HomePage(TemplateView):
@@ -13,14 +14,14 @@ class HomePage(TemplateView):
 
 class UploadPage(FormView):
     form_class = TelemetryUploadForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('upload_page')
     template_name = "upload.html"
 
     def form_valid(self, form):
-        print "HELLO?"
-        print form.file
+        form.save()
+        #  @TODO: Add CSV import code hook here
         messages.success(self.request, 'File uploaded!')
-        return super(FileAddView, self).form_valid(form)
+        return super(UploadPage, self).form_valid(form)
 
 
 class CannedExtract(View):

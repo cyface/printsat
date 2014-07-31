@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 
 class Telemetry(models.Model):
     """Telemetry point from PrintSat."""
@@ -125,6 +125,12 @@ class Telemetry(models.Model):
         ordering = ['ps_time']
         verbose_name_plural = "telemetry"
 
-
     def __unicode__(self):
         return self.ps_time
+
+
+class Upload(models.Model):
+    """Track Uploaded Files"""
+    file = models.FileField(upload_to=settings.MEDIA_ROOT)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)

@@ -12,7 +12,7 @@
     </ul>
 {% endif %}
 <form action="{% url 'upload_page' %}" method="post" enctype="multipart/form-data">
-    <input name="f" type="file" id="file"/>
+    <p>{{ form }}</p>
     <input type="submit" id="submit" value="Submit File"/>
     {% csrf_token %}
 </form>
