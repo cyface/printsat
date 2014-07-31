@@ -1,19 +1,32 @@
 import csv
-from django.views.generic import View, TemplateView
+from django.views.generic import FormView, TemplateView, View
 from django.http import HttpResponse
 from printsat_app.models import Telemetry
+from printsat_app.forms import TelemetryUploadForm
 from django.utils.encoding import smart_str
+from django.core.urlresolvers import reverse_lazy
 
 
-class HomePage (TemplateView):
+class HomePage(TemplateView):
     template_name = 'home.html'
 
 
-class CannedExtract (View):
+class UploadPage(FormView):
+    form_class = TelemetryUploadForm
+    success_url = reverse_lazy('home')
+    template_name = "upload.html"
 
+    def form_valid(self, form):
+        print "HELLO?"
+        print form.file
+        messages.success(self.request, 'File uploaded!')
+        return super(FileAddView, self).form_valid(form)
+
+
+class CannedExtract(View):
     def get(self, request, *args, **kwargs):
         queryset = Telemetry.objects.all()[:5]
-        response = HttpResponse(mimetype='text/csv')
+        response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=telemetry.csv'
         writer = csv.writer(response, csv.excel)
         response.write(u'\ufeff'.encode('utf8'))

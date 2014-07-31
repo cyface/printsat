@@ -1,0 +1,1 @@
+This is the directory where collected static files go.

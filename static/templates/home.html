@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>
+   Options:
+</h3>
+<list>
+    <li><a href="{% url 'canned' %}">Canned Extract</a></li>
+    <li><a href="{% url 'upload_page' %}">Upload</a></li>
+</list>
+{% endblock %}
