@@ -15,12 +15,15 @@ from django.conf import settings
 from django.utils.timezone import utc
 
 
-def import_data():
+def import_data(telemetry_file_path):
     """Import Data"""
 
     telemetry_header_file = open(os.path.join(settings.BASE_DIR, "printsat_app", "formats", "printsat_telemetry_headers.csv"))
     telemetry_headers = csv.DictReader(telemetry_header_file)
-    telemetry_file = open(os.path.join(settings.BASE_DIR, "printsat_app", "test_data", "WD0E_DumpCalc_10292012.csv"))
+    if isinstance(telemetry_file_path, str):
+        telemetry_file = open(telemetry_file_path)
+    else:
+        telemetry_file = telemetry_file_path
     telemetry_list = csv.DictReader(telemetry_file, fieldnames=telemetry_headers.fieldnames)
 
     # Loop through the rows in the CSV
@@ -64,4 +67,4 @@ def import_data():
 
 # #### MAIN FUNCTION TO RUN IF THIS SCRIPT IS CALLED ALONE ##
 if __name__ == "__main__":
-    import_data()
+    import_data(os.path.join(settings.BASE_DIR, "printsat_app", "test_data", "WD0E_DumpCalc_10292012.csv"))
