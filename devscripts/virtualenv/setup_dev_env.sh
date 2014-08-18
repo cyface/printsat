@@ -5,4 +5,4 @@
 
 virtualenv --system-site-packages .env
 . ./.env/bin/activate
-pip install -r ./printsat/requirements_dev.txt
+pip install -r requirements_dev.txt
