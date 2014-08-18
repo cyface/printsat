@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block headtitle %}: Telemetry Extract{% endblock %}
+{% block pageheader %}Telemetry Extract{% endblock %}
+{% block content %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<ul>
+<li><a href="{% url 'default_extract' %}">Default Extract</a></li>
+</ul>
+{% endblock %}

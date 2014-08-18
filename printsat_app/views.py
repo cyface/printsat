@@ -12,6 +12,9 @@ class HomePage(TemplateView):
     template_name = 'home.html'
 
 
+class ExtractPage(TemplateView):
+    template_name = "extract.html"
+
 class UploadPage(FormView):
     form_class = TelemetryUploadForm
     success_url = reverse_lazy('upload_page')
@@ -24,7 +27,7 @@ class UploadPage(FormView):
         return super(UploadPage, self).form_valid(form)
 
 
-class CannedExtract(View):
+class DefaultExtract(View):
     def get(self, request, *args, **kwargs):
         queryset = Telemetry.objects.all()[:5]
         response = HttpResponse(content_type='text/csv')
