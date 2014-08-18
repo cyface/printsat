@@ -13,6 +13,7 @@ import os
 from printsat_app.models import *
 from django.conf import settings
 from django.utils.timezone import utc
+from decimal import InvalidOperation
 
 
 def import_data(telemetry_file_path):
@@ -64,7 +65,11 @@ def import_data(telemetry_file_path):
             row['ps_time'] = time.strftime('%Y-%m-%d %H:%M:%S', time_value) + "+0000"
             row['ps_time_calc'] = datetime.datetime.fromtimestamp(float(row.get('ps_time_calc')), tz=utc)
 
-            telemetry = Telemetry.objects.create(**row)
+            try:
+                telemetry = Telemetry.objects.create(**row)
+            except InvalidOperation:
+                print ("ERROR ON THIS ROW: "),
+                print (row)
 
             # Save the telemetry!
             telemetry.save()
