@@ -26,6 +26,12 @@ def import_data(telemetry_file_path):
         telemetry_file = telemetry_file_path
     telemetry_list = csv.DictReader(telemetry_file, fieldnames=telemetry_headers.fieldnames)
 
+    station = ""
+    lat = ""
+    lon = ""
+    program = ""
+    telem_type = ""
+
     # Loop through the rows in the CSV
     for row in telemetry_list:
         # Create a telemetry object in the database based on the current row
