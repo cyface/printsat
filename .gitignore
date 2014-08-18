@@ -7,12 +7,7 @@
 .DS_Store
 .env
 .idea
-.pydevproject
-.pydevproject.bak
-.settings
-.tmp_*
 .tox
-build/*
 coverage.xml
 css-*_.css
 js-*_.js
@@ -27,14 +22,10 @@ style-*_.css
 mediabrute_usefile
 *conflicted\ copy*
 .codeintel/*
-*/staticroot/admin/*
-*/staticroot/adminactions/*
-*/staticroot/css/*
-*/staticroot/debug_toolbar/*
-*/staticroot/images/*
-*/staticroot/js/*
-*/staticroot/swf/*
-*/mediaroot/images/covers/
+static_root/*
+!static_root/README.txt
+media_root/*
+!media_root/README.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
