@@ -1,0 +1,13 @@
+<uwsgi>
+        <uid>printsat</uid>
+        <gid>printsat</gid>
+        <socket>/var/run/uwsgi/uwsgi-printsat.socket</socket>
+	<chmod-socket>666</chmod-socket>
+        <pythonpath>/home/printsat/printsat/</pythonpath>
+        <master>true</master>
+        <pidfile>/var/run/uwsgi/wsgi-printsat.pid</pidfile>
+        <workers>2</workers>
+        <module>wsgi</module>
+        <enable-threads>true</enable-threads>
+        <daemonize>/var/log/uwsgi-printsat.log</daemonize>
+</uwsgi>
