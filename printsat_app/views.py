@@ -29,7 +29,7 @@ class UploadPage(FormView):
 
 class DefaultExtract(View):
     def get(self, request, *args, **kwargs):
-        queryset = Telemetry.objects.all()[:5]
+        queryset = Telemetry.objects.all()[:10]
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=telemetry.csv'
         writer = csv.writer(response, csv.excel)
