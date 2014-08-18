@@ -25,7 +25,7 @@ class Telemetry(models.Model):
     sp4_v_eight = models.DecimalField(max_digits=5, decimal_places=2)
     sp4_i_eight = models.DecimalField(max_digits=5, decimal_places=2)
     five_v = models.DecimalField(max_digits=5, decimal_places=2)
-    five_i = models.DecimalField(max_digits=5, decimal_places=2)
+    five_i = models.DecimalField(max_digits=6, decimal_places=2)
     three_v = models.DecimalField(max_digits=5, decimal_places=2)
     three_i = models.DecimalField(max_digits=5, decimal_places=2)
     load_cell = models.DecimalField(max_digits=6, decimal_places=2)

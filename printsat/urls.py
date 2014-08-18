@@ -7,8 +7,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^$', HomePage.as_view(), name="home"),
-                       url(r'^extract/', ExtractPage.as_view(), name="extract_page"),
                        url(r'^extract/default/', DefaultExtract.as_view(), name="default_extract"),
+                       url(r'^extract/', ExtractPage.as_view(), name="extract_page"),
                        url(r'^upload/', UploadPage.as_view(), name="upload_page"),
                        url(r'^admin/', include(admin.site.urls)),
 )
