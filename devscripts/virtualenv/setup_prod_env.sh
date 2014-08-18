@@ -5,4 +5,4 @@
 
 virtualenv --no-site-packages .env
 . ./.env/bin/activate
-pip install -r podiobooks/requirements.txt
+pip install -r printsat/requirements.txt
