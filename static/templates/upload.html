@@ -15,3 +15,10 @@
     {% csrf_token %}
 </form>
 {% endblock %}
+{% block bodybottom %}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $("#nav-upload").addClass("active");
+        });
+    </script>
+{% endblock %}

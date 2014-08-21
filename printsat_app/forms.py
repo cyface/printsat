@@ -1,6 +1,7 @@
 # Django forms for the application
 
-from django.forms import ModelForm, ValidationError
+from django.forms import Form, ModelForm, ValidationError
+from django.forms import DateField
 from printsat_app.models import Upload
 from printsat_app.import_utils import import_data
 from django.core.validators import RegexValidator
@@ -22,3 +23,10 @@ class TelemetryUploadForm(ModelForm):
         import_data(cleaned_data.get("file"))
 
         return cleaned_data
+
+
+class TelemetryQueryForm(Form):
+    """Query Telem With This Form"""
+
+    start_date = DateField()
+    end_date = DateField()

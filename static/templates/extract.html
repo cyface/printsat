@@ -2,14 +2,29 @@
 {% block headtitle %}: Telemetry Extract{% endblock %}
 {% block pageheader %}Telemetry Extract{% endblock %}
 {% block content %}
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <ul>
+        <li><a href="{% url 'default_extract' %}">Default Extract</a></li>
     </ul>
-{% endif %}
-<ul>
-<li><a href="{% url 'default_extract' %}">Default Extract</a></li>
-</ul>
+    <hr>
+    <p>Custom Extract</p>
+    <form>
+        <label class="control-label">Start Date</label>
+        <input class="form-control" id="start_date" type="text" placeholder="8/1/2014">
+        <label class="control-label">End Date</label>
+        <input class="form-control" id="end_date" type="text" placeholder="12/31/2014">
+    </form>
+{% endblock %}
+{% block bodybottom %}
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $("#nav-extract").addClass("active");
+        });
+    </script>
 {% endblock %}

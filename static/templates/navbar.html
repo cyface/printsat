@@ -1,10 +1,10 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">PrintSat</a>
         <ul class="nav navbar-nav">
-            <a class="navbar-brand" href="{% url 'home' %}">PrintSat</a>
-            <li><a class="active" href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-            <li><a href="{% url 'extract_page' %}"><span class="glyphicon glyphicon-arrow-down"></span> Extract</a></li>
-            <li><a href="{% url 'upload_page' %}"><span class="glyphicon glyphicon-arrow-up"></span> Upload</a></li>
+            <li id="nav-home"><a href="{% url 'home' %}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li id="nav-extract"><a href="{% url 'extract_page' %}"><span class="glyphicon glyphicon-arrow-down"></span> Extract</a></li>
+            <li id="nav-upload"><a  href="{% url 'upload_page' %}"><span class="glyphicon glyphicon-arrow-up"></span> Upload</a></li>
         </ul>
     </div>
 </nav>

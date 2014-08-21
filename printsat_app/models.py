@@ -128,7 +128,7 @@ class Telemetry(models.Model):
         verbose_name_plural = "telemetry"
 
     def __unicode__(self):
-        return self.ps_time
+        return unicode(self.ps_time)
 
 
 class Upload(models.Model):
