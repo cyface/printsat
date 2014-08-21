@@ -7,7 +7,6 @@
         <master>true</master>
         <pidfile>/var/run/uwsgi/wsgi-printsat.pid</pidfile>
         <workers>2</workers>
-        <module>wsgi</module>
         <enable-threads>true</enable-threads>
 	<py-autoreload>3</py-autoreload>
         <daemonize>/var/log/uwsgi-printsat.log</daemonize>
