@@ -90,6 +90,8 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'static', 'templates'),
 )
 
+FORMATS_DIR = os.path.join(BASE_DIR, "printsat_app", "formats")
+
 try:
     from local_settings import *
 except ImportError:

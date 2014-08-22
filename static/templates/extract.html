@@ -10,16 +10,12 @@
         </ul>
     {% endif %}
     <ul>
-        <li><a href="{% url 'default_extract' %}">Default Extract</a></li>
+        <li><a href="{% url 'extract_csv' format_name='imm_extract' %}">IMM Extract</a></li>
+        <li><a href="{% url 'extract_csv' format_name='load_cell_extract' %}">Load Cell Extract</a></li>
+        <li><a href="{% url 'extract_csv' format_name='motion_extract' %}">Motion Extract</a></li>
+        <li><a href="{% url 'extract_csv' format_name='msu_experiment_extract' %}">MSU Experiment Extract</a></li>
+        <li><a href="{% url 'extract_csv' format_name='power_extract' %}">Power Extract</a></li>
     </ul>
-    <hr>
-    <p>Custom Extract</p>
-    <form>
-        <label class="control-label">Start Date</label>
-        <input class="form-control" id="start_date" type="text" placeholder="8/1/2014">
-        <label class="control-label">End Date</label>
-        <input class="form-control" id="end_date" type="text" placeholder="12/31/2014">
-    </form>
 {% endblock %}
 {% block bodybottom %}
     <script type="application/javascript">

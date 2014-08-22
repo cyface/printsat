@@ -7,7 +7,7 @@ class Telemetry(models.Model):
 
     station = models.CharField(max_length=20)
     lat = models.DecimalField(max_digits=10, decimal_places=5)
-    lon = models.DecimalField(max_digits=10, decimal_places=5)
+    lng = models.DecimalField(max_digits=10, decimal_places=5)
     program = models.CharField(max_length=30)
     telem_type = models.CharField(max_length=20)
     ps_time = models.DateTimeField()
