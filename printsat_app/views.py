@@ -3,7 +3,6 @@ from django.views.generic import FormView, TemplateView, View
 from django.http import HttpResponse
 from printsat_app.models import Telemetry
 from printsat_app.forms import TelemetryUploadForm
-from django.utils.encoding import smart_str
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from django.conf import settings

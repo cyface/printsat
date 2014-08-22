@@ -29,7 +29,7 @@ def import_data(telemetry_file_path):
 
     station = ""
     lat = ""
-    lon = ""
+    lng = ""
     program = ""
     telem_type = ""
 
@@ -41,7 +41,7 @@ def import_data(telemetry_file_path):
             station = row.get('ps_time')
         elif telemetry_list.line_num == 2:
             lat = row.get('ps_time')
-            lon = row.get('ps_time_calc')
+            lng = row.get('ps_time_calc')
         elif telemetry_list.line_num == 3:
             program = row.get('ps_time')
             telem_type = row.get('ps_time_calc')
@@ -58,7 +58,7 @@ def import_data(telemetry_file_path):
             row.pop("unused8", None)
             row['station'] = station
             row['lat'] = lat
-            row['lon'] = lon
+            row['lng'] = lng
             row['program'] = program
             row['telem_type'] = telem_type
             time_value = time.strptime(row.get('ps_time', '01.01.1900 00:00:00'), '%m.%d.%Y %H:%M:%S')
