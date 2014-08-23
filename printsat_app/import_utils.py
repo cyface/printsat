@@ -41,10 +41,10 @@ def import_data(telemetry_file_path):
             station = row.get('ps_time')
         elif telemetry_list.line_num == 2:
             lat = row.get('ps_time')
-            lng = row.get('ps_time_calc')
+            lng = row.get('ps_time_seconds')
         elif telemetry_list.line_num == 3:
             program = row.get('ps_time')
-            telem_type = row.get('ps_time_calc')
+            telem_type = row.get('ps_time_seconds')
         elif telemetry_list.line_num == 4:
             pass  # Header Row
         else:
@@ -63,7 +63,7 @@ def import_data(telemetry_file_path):
             row['telem_type'] = telem_type
             time_value = time.strptime(row.get('ps_time', '01.01.1900 00:00:00'), '%m.%d.%Y %H:%M:%S')
             row['ps_time'] = time.strftime('%Y-%m-%d %H:%M:%S', time_value)
-            row['ps_time_calc'] = datetime.datetime.fromtimestamp(float(row.get('ps_time_calc')))
+            row['ps_time_seconds'] = datetime.datetime.fromtimestamp(float(row.get('ps_time_seconds')))
 
             try:
                 telemetry = Telemetry.objects.create(**row)

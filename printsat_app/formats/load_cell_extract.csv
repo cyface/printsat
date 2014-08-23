@@ -1,1 +1,1 @@
-station,lat,lng,program,telem_type,ps_time,ps_time_calc,bat_v,bat_i,sp1_v,sp2_v,sp3_v_five,sp3_i_five,sp4_v_eight,five_v,five_i,load_cell,sp1_temp,sp3_temp,bat_temp,five_vreg_temp,wilt_cell_temp,rad_rssi,msu_temp_1,msu_temp_2,msu_temp_4,msu_temp_3,imm_temp
+station,lat,lng,program,telem_type,ps_time,ps_time_seconds,bat_v,bat_i,sp1_v_5,sp2_v_6,sp3_v_7,sp3_i_7,sp4_v_8,five_v,five_i,load_cell_v,sp1_temp,sp3_temp,bat_temp,five_v_reg_temp,wilt_cell_v,wilt_cell_i,rad_rssi,msu_temp_1,msu_temp_2,msu_temp_4,msu_temp_3,imm_temp
