@@ -9,6 +9,7 @@ from printsat_app.models import Telemetry, Upload
 class TelemetryAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_created'
     list_display = ('ps_time', 'station', 'program', 'telem_type', 'page', 'date_created')
+    list_filter = ('ps_time', 'station', 'telem_type', 'date_created')
 
 
 class UploadAdmin(admin.ModelAdmin):
