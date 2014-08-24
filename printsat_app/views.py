@@ -27,13 +27,17 @@ class ExtractPage(FormView):
             ps_time__lte=form.cleaned_data.get("end_datetime", '2014-10-01 10:00:00'),
             ps_time__gte=form.cleaned_data.get("start_datetime", '2014-09-01 10:00:00')
         ).values_list(*format_spec)
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=telemetry.csv'
-        writer = csv.writer(response, csv.excel)
-        writer.writerow(format_spec)
-        for obj in queryset:
-            writer.writerow(obj)
-        return response
+        if len(queryset) < 1:
+            messages.error(self.request, 'Query Returned No Telemetry!')
+            return super(ExtractPage, self).get(self)
+        else:
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename=telemetry.csv'
+            writer = csv.writer(response, csv.excel)
+            writer.writerow(format_spec)
+            for obj in queryset:
+                writer.writerow(obj)
+            return response
 
 
 class UploadPage(FormView):
@@ -53,8 +57,7 @@ class ExtractCSV(View):
         kwarg: 'format_name' - name of CSV file (without .csv) in the 'formats' dir to use to determine output fields
     """
 
-    @staticmethod
-    def get(request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         format_name = kwargs.get("format_name", "imm_extract")
         format_spec_file = file(os.path.join(settings.FORMATS_DIR, format_name + '.csv'))
         format_spec = format_spec_file.readline().rstrip().split(",")

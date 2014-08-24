@@ -1,7 +1,7 @@
 # Django forms for the application
 
 from django.forms import Form, ModelForm, ValidationError
-from django.forms import DateTimeField, ChoiceField
+from django.forms import DateTimeField, ChoiceField, DateTimeInput
 from printsat_app.models import Upload
 from printsat_app.import_utils import import_data
 from django.core.validators import RegexValidator
@@ -36,6 +36,11 @@ class TelemetryQueryForm(Form):
         ('power', 'Power'),
     )
 
-    start_datetime = DateTimeField(label="Start Date/Time", initial="2013-02-21 12:57:00")
-    end_datetime = DateTimeField(label="End Date/Time", initial="2013-02-21 12:59:00")
+    start_datetime = DateTimeField(label="Start Date/Time",
+                                   initial="2013-02-21 12:57:00",
+                                   widget=DateTimeInput(attrs={'class': 'form-control'})
+    )
+    end_datetime = DateTimeField(label="End Date/Time",
+                                 initial="2013-02-21 12:59:00",
+                                 widget=DateTimeInput(attrs={'class': 'form-control'}))
     format_name = ChoiceField(choices=FORMAT_NAME_CHOICES)

@@ -9,17 +9,17 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <ul>
-        <li><a href="{% url 'extract_csv' format_name='imm_extract' %}">IMM Extract</a></li>
-        <li><a href="{% url 'extract_csv' format_name='load_cell_extract' %}">Load Cell Extract</a></li>
-        <li><a href="{% url 'extract_csv' format_name='motion_extract' %}">Motion Extract</a></li>
-        <li><a href="{% url 'extract_csv' format_name='msu_experiment_extract' %}">MSU Experiment Extract</a></li>
-        <li><a href="{% url 'extract_csv' format_name='power_extract' %}">Power Extract</a></li>
-    </ul>
-    <hr>
     <form action="{% url 'extract_page' %}" method="post">
-        {{ form }}
-        <input type="submit" name="submit" value="Submit">
+        <div class="control-group">
+            {{ form }}
+            <div class="control-group">
+                <label class="control-label" for="singlebutton"></label>
+
+                <div class="controls">
+                    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Extract</button>
+                </div>
+            </div>
+        </div>
         {% csrf_token %}
     </form>
 {% endblock %}
