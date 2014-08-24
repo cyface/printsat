@@ -125,14 +125,13 @@ class Telemetry(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
+    class Meta(object):
+        ordering = ['ps_time']
+        verbose_name_plural = "telemetry"
 
-class Meta(object):
-    ordering = ['ps_time']
-    verbose_name_plural = "telemetry"
 
-
-def __unicode__(self):
-    return unicode(self.ps_time)
+    def __unicode__(self):
+        return unicode(self.ps_time)
 
 
 class Upload(models.Model):
@@ -140,3 +139,9 @@ class Upload(models.Model):
     file = models.FileField(upload_to=settings.MEDIA_ROOT)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+
+    class Meta(object):
+        ordering = ['date_created']
+
+    def __unicode__(self):
+        return unicode(self.file)

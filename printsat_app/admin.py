@@ -5,12 +5,15 @@
 from django.contrib import admin
 from printsat_app.models import Telemetry, Upload
 
+
 class TelemetryAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_created'
+    list_display = ('ps_time', 'station', 'program', 'telem_type', 'page', 'date_created')
 
 
 class UploadAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_created'
+    list_display = ('date_created', 'file')
 
 admin.site.register(Telemetry, TelemetryAdmin)
 admin.site.register(Upload, UploadAdmin)
