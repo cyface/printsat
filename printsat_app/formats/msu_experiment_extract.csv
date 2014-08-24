@@ -1,1 +1,1 @@
-station,lat,lng,program,telem_type,ps_time,ps_time_seconds,bat_v,bat_i,exp_1,exp_0,five_v,five_i,udoslo,msu_i_1,udos_med,msu_temp_1,udos_hi,msu_i_2,udos_log,msu_temp_2,mus_i_3,msu_temp_4,msu_temp_3,msu_temp_2,msu_temp_4,msu_temp_3
+station,lat,lng,program,telem_type,ps_time,ps_time_seconds,bat_v,bat_i,msu_1,msu_0,five_v,five_i,udoslo,msu_i_1,udos_med,msu_temp_1,udos_hi,msu_i_2,udos_log,msu_temp_2,mus_i_3,msu_temp_4,msu_temp_3,msu_temp_2,msu_temp_4,msu_temp_3
