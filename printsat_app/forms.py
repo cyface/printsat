@@ -32,8 +32,8 @@ class TelemetryQueryForm(Form):
         ('imm_extract', 'IMM'),
         ('load_cell_extract', 'Load Cell'),
         ('motion_extract', 'Motion'),
-        ('msu_experiment', 'MSU Experiment'),
-        ('power', 'Power'),
+        ('msu_experiment_extract', 'MSU Experiment'),
+        ('power_extract', 'Power'),
     )
 
     start_datetime = DateTimeField(label="Start Date/Time",
