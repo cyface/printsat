@@ -1,27 +1,24 @@
 {% extends "base.html" %}
+{% load bootstrap3 %}
 {% block headtitle %}: Telemetry Extract{% endblock %}
 {% block pageheader %}Telemetry Extract{% endblock %}
 {% block content %}
     {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
+        {% for message in messages %}
+            {% bootstrap_messages message %}
+        {% endfor %}
     {% endif %}
-    <form action="{% url 'extract_page' %}" method="post">
-        <div class="control-group">
-            {{ form }}
-            <div class="control-group">
-                <label class="control-label" for="singlebutton"></label>
-
-                <div class="controls">
-                    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Extract</button>
-                </div>
-            </div>
-        </div>
-        {% csrf_token %}
-    </form>
+    <div class="col-md-4">
+        <form action="{% url 'extract_page' %}" method="post">
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    {% bootstrap_icon "arrow-down" %} Extract
+                </button>
+            {% endbuttons %}
+            {% csrf_token %}
+        </form>
+    </div>
 {% endblock %}
 {% block bodybottom %}
     <script type="application/javascript">
