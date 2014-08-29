@@ -6,6 +6,7 @@ from printsat_app.forms import TelemetryQueryForm, TelemetryUploadForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from django.conf import settings
+from printsat_app.import_utils import import_data
 import os
 
 
@@ -47,8 +48,9 @@ class UploadPage(FormView):
     template_name = "upload.html"
 
     def form_valid(self, form):
-        form.save()
-        messages.success(self.request, 'File uploaded!')
+        if form:
+            result = import_data(form.cleaned_data.get("file"))
+            messages.success(self.request, result)
         return super(UploadPage, self).form_valid(form)
 
 
