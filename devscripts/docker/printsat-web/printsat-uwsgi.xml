@@ -1,0 +1,11 @@
+<uwsgi>
+        <socket>/tmp/uwsgi.sock</socket>
+	<chmod-socket>666</chmod-socket>
+        <pythonpath>/home/printsat/printsat/</pythonpath>
+        <master>true</master>
+        <pidfile>/tmp/wsgi-printsat.pid</pidfile>
+        <workers>2</workers>
+        <enable-threads>true</enable-threads>
+	<py-autoreload>3</py-autoreload>
+        <daemonize>/home/printsat/logs/uwsgi-printsat.log</daemonize>
+</uwsgi>
