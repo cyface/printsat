@@ -6,10 +6,7 @@ MAINTAINER Tim L. White "tim@cyface.com"
 RUN pip install virtualenv supervisor
 
 # Add Supervisor Config File for Printsat
-ADD supervisord.conf /etc/supervisor/conf.d/
-
-# Create printsat user
-RUN useradd printsat
+ADD supervisord.conf /etc/nginx/supervisord.conf
 
 # Switch to printsat user
 USER printsat
@@ -26,14 +23,21 @@ RUN git clone https://github.com/cyface/printsat.git
 # Move to Code Dir
 WORKDIR /home/printsat/printsat
 
-# Install Code Dependencies
-RUN devscripts/virtualenv/setup_prod_env.sh
+# Switch Back to Root
+USER root
 
-# Activate Virtualenv
-RUN . .env/bin/activate
+# Install Dependencies
+RUN pip install -r /home/printsat/printsat/requirements.txt
+
+# Switch Back to Printsat
+USER printsat
 
 # Initialize DB
 RUN python manage.py syncdb --noinput
+RUN python manage.py collectstatic --noinput
+
+# And back to root again
+USER root
 
 # Add logs dir
 RUN mkdir logs
@@ -42,4 +46,4 @@ RUN mkdir logs
 VOLUME /home/printsat/logs
 
 # Start uWSGI
-CMD ["supervisord", "-n"]
+CMD ["supervisord", "-n", "-c", "/etc/nginx/supervisord.conf"]
