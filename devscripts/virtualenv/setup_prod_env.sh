@@ -3,6 +3,6 @@
 # curl -O https://raw.github.com/pypa/virtualenv/master/virtualenv.py
 # This should be run from the project directory, not inside the socialprofile dir
 
-virtualenv --no-site-packages .env
+virtualenv .env
 . ./.env/bin/activate
 pip install -r requirements.txt
