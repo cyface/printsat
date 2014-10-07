@@ -8,14 +8,29 @@ RUN pip install virtualenv supervisor
 # Add Supervisor Config File for Printsat
 ADD supervisord.conf /etc/nginx/supervisord.conf
 
+# Delete default nginx configs
+RUN rm /etc/nginx/conf.d/* 
+
+# Add printsat nginx config
+ADD printsat-nginx.conf /etc/nginx/conf.d/printsat-nginx.conf
+
+# Create printsat user
+RUN useradd printsat
+
+# Add nginx to printsat group
+RUN usermod -G printsat nginx
+
+# Open group permissions to printsat home dir
+RUN chmod g+rx /home/printsat
+
 # Switch to printsat user
 USER printsat
 
+# Add Printsat Uwsgi File
+ADD printsat-uwsgi.xml /home/printsat/printsat-uwsgi.xml
+
 # Change to printsat dir
 WORKDIR /home/printsat
-
-# Add printsat uWSGI config file
-ADD printsat-uwsgi.xml /home/printsat/printsat-uwsgi.xml
 
 # git checkout printsat
 RUN git clone https://github.com/cyface/printsat.git
