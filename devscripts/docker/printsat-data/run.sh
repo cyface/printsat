@@ -1,4 +1,3 @@
 sudo docker run --name="printsat-data" \
-	-v /data \
+	-v /home/printsat/data \
 	cyface/printsat-data \
-	/bin/bash	
