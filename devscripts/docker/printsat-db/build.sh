@@ -1,1 +1,1 @@
-sudo docker build -t="cyface/prinsat-db" .
+sudo docker build -t="cyface/printsat-db" .
