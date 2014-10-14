@@ -29,13 +29,26 @@ ADD printsat-nginx.conf /etc/nginx/conf.d/printsat-nginx.conf
 RUN usermod -G printsat nginx
 
 # Install uwsgi
+RUN yum install -y python-devel libxml2-devel pcre-devel jansson-devel libcap-devel uuid-devel sqlite-devel openldap-devel libyaml-devel
 RUN pip install uwsgi
+
+# Install Psycopg2
+RUN pip install psycopg2
+
+# Install Pillow
+RUN yum install -y libjpeg libjpeg-devel zlib zlib-devel libtiff libtiff-devel libfreetype libfreetype-devel littlecms littlecms-devel libwebp libwebp-devel openjpeg openjpeg-devel
+
+# Install virtualenv
+RUN pip install virtualenv
 
 # Switch to printsat user
 USER printsat
 
 # Add Printsat Uwsgi File
 ADD printsat-uwsgi.xml /home/printsat/printsat-uwsgi.xml
+
+# Add setup script
+ADD printsat-initial-setup.sh /home/printsat/printsat-initial-setup.sh
 
 # Switch to root to run supervisord
 USER root

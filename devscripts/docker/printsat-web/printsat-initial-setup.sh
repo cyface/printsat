@@ -1,3 +1,4 @@
+su - printsat
 if [ -d /home/printsat/data/printsat ]; then 
 	rm -rf /home/printsat/data/printsat
 fi
