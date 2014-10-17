@@ -1,10 +1,10 @@
 <uwsgi>
-        <socket>/tmp/uwsgi.sock</socket>
+        <socket>/home/printsat/data/uwsgi.sock</socket>
         <chmod-socket>666</chmod-socket>
         <pythonpath>/home/printsat/data/printsat</pythonpath>
 	<home>/home/printsat/data/printsat/.env</home>
         <master>true</master>
-        <pidfile>/tmp/wsgi-printsat.pid</pidfile>
+        <pidfile>/home/printsat/data/uwsgi.pid</pidfile>
         <workers>2</workers>
         <enable-threads>true</enable-threads>
         <logto>/home/printsat/data/uwsgi.log</logto>
