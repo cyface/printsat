@@ -50,6 +50,9 @@ ADD printsat-uwsgi.xml /home/printsat/printsat-uwsgi.xml
 # Add setup script
 ADD printsat-initial-setup.sh /home/printsat/printsat-initial-setup.sh
 
+# Add local app settings file to temp location - init setup will install
+ADD printsat_local_settings.py /home/printsat/local_settings.py
+
 # Switch to root to run supervisord
 USER root
 
