@@ -21,4 +21,4 @@ ADD postgres-initial-setup.sh /home/printsat/postgres-initial-setup.sh
 EXPOSE 5432
 
 # Start uWSGI
-CMD ["/usr/pgsql-9.3/bin/pg_ctl", "start", "-D", "/home/printsat/data/db/", "-l", "/home/printsat/data/postgres.log", "-s", "-w", "-t", "300"]
+CMD ["/usr/pgsql-9.3/bin/postgres", "-D", "/home/printsat/data/db/"]
