@@ -8,4 +8,4 @@ cd /home/printsat/data/printsat
 . .env/bin/activate
 python manage.py collectstatic --noinput
 cp /home/printsat/local_settings.py /home/printsat/printsat/printsat/local_settings.py
-chown -R printsat.printsat /home/printsat/data
+chown -R printsat.printsat /home/printsat/data/printsat
