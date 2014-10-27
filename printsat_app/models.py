@@ -34,7 +34,7 @@ class Telemetry(models.Model):
     load_cell_v = models.DecimalField(max_digits=6, decimal_places=2)
     sp1_temp = models.DecimalField(max_digits=6, decimal_places=2)
     sp3_temp = models.DecimalField(max_digits=6, decimal_places=2)
-    bat_temp = models.DecimalField(max_digits=6, decimal_places=2)
+    bat_temp = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     five_v_reg_temp = models.DecimalField(max_digits=6, decimal_places=2)
     imm_pcb_temp = models.DecimalField(max_digits=6, decimal_places=2)
     wilt_cell_i = models.DecimalField(max_digits=6, decimal_places=2)
