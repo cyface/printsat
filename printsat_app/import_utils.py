@@ -25,8 +25,8 @@ def import_data(telemetry_file_path):
     else:
         telemetry_file = telemetry_file_path
 
-    if "DumpRaw" in telemetry_file.name:
-        header_file_name = "printsat_raw_telemetry_headers.csv"
+    if "Eng" in telemetry_file.name:
+        header_file_name = "printsat_live_telemetry_headers.csv"
     else:
         header_file_name = "printsat_telemetry_headers.csv"
 
