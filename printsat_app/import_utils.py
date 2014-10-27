@@ -91,7 +91,7 @@ def import_data(telemetry_file_path):
                 # print (row)
                 duplicate_rows += 1
 
-    result_string = "\n\rImported {0} rows. Did not import {1} duplicate rows and {2} invalid rows out of {3} total rows in the file.".format(imported_rows, duplicate_rows, invalid_rows, row_count)
+    result_string = "\n\rImported {0} rows. There were {1} duplicate rows and {2} invalid rows out of {3} total rows in the file that were not imported.".format(imported_rows, duplicate_rows, invalid_rows, row_count)
     print (result_string)
     return result_string
 
