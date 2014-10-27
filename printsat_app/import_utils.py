@@ -15,7 +15,7 @@ from django.conf import settings
 from django.utils.timezone import utc
 from decimal import InvalidOperation
 from django.db import IntegrityError
-from djanog.core.exceptions import DoesNotExist
+from django.core.exceptions import DoesNotExist
 
 def import_data(telemetry_file_path):
     """Import Data"""
