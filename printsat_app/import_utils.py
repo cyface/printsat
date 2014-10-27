@@ -89,7 +89,7 @@ def import_data(telemetry_file_path):
                         Telemetry.objects.filter(ps_time=row['ps_time']).update(**row)
                         updated_rows += 1
                 except ObjectDoesNotExist:
-                    telemetry = Telemetry.objects.get_or_create(**row)
+                    telemetry = Telemetry.objects.create(**row)
                     telemetry.save()
                     imported_rows += 1
                 print ("."),
