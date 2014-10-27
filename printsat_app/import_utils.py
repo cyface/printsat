@@ -83,7 +83,7 @@ def import_data(telemetry_file_path):
                 
                 try:
                     telemetry = Telemetry.objects.get(ps_time=row['ps_time'])
-                    if telemetry.telem_type == 'Dump Calc' && row['telem_type'] == 'Dump Raw':
+                    if telemetry.telem_type == 'Dump Calc' and row['telem_type'] == 'Dump Raw':
                         ignored_rows += 1  # Ignore Raw Rows if we aleady have a calc Row for same time
                     else:
                         telemetry.update(**row)
