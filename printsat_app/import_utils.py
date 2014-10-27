@@ -15,7 +15,7 @@ from django.conf import settings
 from django.utils.timezone import utc
 from decimal import InvalidOperation
 from django.db import IntegrityError
-from django.core.exceptions import DoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 
 def import_data(telemetry_file_path):
     """Import Data"""
@@ -88,7 +88,7 @@ def import_data(telemetry_file_path):
                     else:
                         telemetry.update(**row)
                         updated_rows += 1
-                except DoesNotExist:
+                except ObjectDoesNotExist:
                     telemetry = Telemetry.objects.get_or_create(**row)
                     telemetry.save()
                     imported_rows += 1
