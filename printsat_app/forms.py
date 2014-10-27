@@ -33,11 +33,11 @@ class TelemetryQueryForm(Form):
     )
 
     start_datetime = DateTimeField(label="Start Date/Time",
-                                   initial="2013-02-21 12:57:00",
+                                   initial="2014-10-25 15:38:00",
                                    help_text="Start date/time in YYYY-MM-DD HH:MM:SS format.",
                                    widget=DateTimeInput())
     end_datetime = DateTimeField(label="End Date/Time",
-                                 initial="2013-02-21 12:59:00",
+                                 initial="2014-10-25 15:48:00",
                                  help_text="End date/time in YYYY-MM-DD HH:MM:SS format.",
                                  widget=DateTimeInput())
     format_name = ChoiceField(choices=FORMAT_NAME_CHOICES,
