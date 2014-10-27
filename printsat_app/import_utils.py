@@ -97,10 +97,10 @@ def import_data(telemetry_file_path):
                 print ("ERROR ON THIS ROW: "),
                 print (row)
                 invalid_rows += 1
-            except IntegrityError:
-                print ("DUPLICATE ROW: "),
-                # print (row)
-                duplicate_rows += 1
+#            except IntegrityError:
+#                print ("DUPLICATE ROW: "),
+#                print (row)
+#                duplicate_rows += 1
 
     result_string = "\n\rImported {0} rows, Updated {1} rows. There were {2} duplicate rows, {3} invalid rows, and {4} ignored rows out of {4} total rows in the file that were not imported.".format(imported_rows, updated_rows, duplicate_rows, invalid_rows, ignored_rows, row_count)
     print (result_string)
