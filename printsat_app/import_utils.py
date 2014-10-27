@@ -40,9 +40,11 @@ def import_data(telemetry_file_path):
     program = ""
     telem_type = ""
     row_count = 0
+    duplicate_rows = 0
+    ignored_rows = 0
     imported_rows = 0
     invalid_rows = 0
-    duplicate_rows = 0
+    updated_rows = 0
 
     # Loop through the rows in the CSV
     for row in telemetry_list:
@@ -78,9 +80,18 @@ def import_data(telemetry_file_path):
                 time_value = time.strptime(row.get('ps_time', '01.01.1900 00:00:00'), '%m.%d.%Y %H:%M:%S')
                 row['ps_time'] = time.strftime('%Y-%m-%d %H:%M:%S', time_value)
                 row['ps_time_seconds'] = datetime.datetime.fromtimestamp(float(row.get('ps_time_seconds')))
-                telemetry = Telemetry.objects.create(**row)
-                telemetry.save()
-                imported_rows += 1
+                
+                try:
+                    telemetry = Telemetry.objects.get(ps_time=row['ps_time'])
+                    if telemetry.telem_type == 'Dump Calc' && row['telem_type'] == 'Dump Raw':
+                        ignored_rows += 1  # Ignore Raw Rows if we aleady have a calc Row for same time
+                    else:
+                        telemetry.update(**row)
+                        updated_rows += 1
+                except DoesNotExist:
+                    telemetry = Telemetry.objects.get_or_create(**row)
+                    telemetry.save()
+                    imported_rows += 1
                 print ("."),
             except (InvalidOperation, ValueError):
                 print ("ERROR ON THIS ROW: "),
@@ -91,7 +102,7 @@ def import_data(telemetry_file_path):
                 # print (row)
                 duplicate_rows += 1
 
-    result_string = "\n\rImported {0} rows. There were {1} duplicate rows and {2} invalid rows out of {3} total rows in the file that were not imported.".format(imported_rows, duplicate_rows, invalid_rows, row_count)
+    result_string = "\n\rImported {0} rows, Updated {1} rows. There were {2} duplicate rows, {3} invalid rows, and {4} ignored rows out of {4} total rows in the file that were not imported.".format(imported_rows, updated_rows, duplicate_rows, invalid_rows, ignored_rows, row_count)
     print (result_string)
     return result_string
 
