@@ -12,7 +12,7 @@ class Telemetry(models.Model):
     telem_type = models.CharField(max_length=20)
     ps_time = models.DateTimeField(db_index=True, unique=True)
     ps_time_seconds = models.DateTimeField()
-    last_good_io_telem = models.CharField(max_length=30)
+    last_good_io_telem = models.CharField(max_length=30, blank=True, null=True)
     page = models.IntegerField(max_length=5, blank=True, null=True)
     bat_v = models.DecimalField(max_digits=6, decimal_places=2)
     bat_i = models.DecimalField(max_digits=6, decimal_places=2)
