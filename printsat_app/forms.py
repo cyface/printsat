@@ -12,6 +12,7 @@ class TelemetryUploadForm(ModelForm):
 
     class Meta:
         model = Upload
+        fields = ['file']
 
     def clean(self, *args, **kwargs):
         cleaned_data = super(TelemetryUploadForm, self).clean()
