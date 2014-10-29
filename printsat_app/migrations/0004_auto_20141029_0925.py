@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
             model_name='telemetry',
             name='ps_time_seconds',
             field=models.IntegerField(),
-            preserve_default=True,
+            preserve_default=False,
         ),
         migrations.AlterField(
             model_name='upload',
             name='file',
-            field=models.FileField(upload_to=b'C:/Users/tlwhit2/PycharmProjects/printsat\\media_root'),
+            field=models.FileField(),
             preserve_default=True,
         ),
     ]
