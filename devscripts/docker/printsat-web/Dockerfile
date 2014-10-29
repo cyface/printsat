@@ -53,6 +53,9 @@ ADD printsat-initial-setup.sh /home/printsat/printsat-initial-setup.sh
 # Add local app settings file to temp location - init setup will install
 ADD printsat_local_settings.py /home/printsat/local_settings.py
 
+# Add reload script
+ADD printsat-code-update.sh /home/printsat/printsat-code-update.sh
+
 # Switch to root to run supervisord
 USER root
 

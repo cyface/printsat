@@ -8,6 +8,6 @@
         <workers>2</workers>
         <enable-threads>true</enable-threads>
         <logto>/home/printsat/data/uwsgi.log</logto>
-	<touch-reload>true</touch-reload>
+	<touch-reload>/home/printsat/data/printsat/printsat/local_settings.py</touch-reload>
         <wsgi-file>/home/printsat/data/printsat/printsat/wsgi.py</wsgi-file>
 </uwsgi>
