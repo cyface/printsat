@@ -137,7 +137,7 @@ class Telemetry(models.Model):
 
 class Upload(models.Model):
     """Track Uploaded Files"""
-    file = models.FileField(upload_to=settings.MEDIA_ROOT)
+    file = models.FileField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
