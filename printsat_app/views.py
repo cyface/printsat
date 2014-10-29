@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.conf import settings
 from printsat_app.import_utils import import_data
 import os
+from django.core import serializers
 
 
 class HomePage(TemplateView):
@@ -71,4 +72,30 @@ class ExtractCSV(View):
         for obj in queryset:
             writer.writerow(obj)
         return response
+
+
+class PanelGraphView(TemplateView):
+    """Show a Solar Panel Current Graph"""
+
+    template_name = 'panel_graph.html'
+
+    def get_context_data(self, **kwargs):
+        panel_data = Telemetry.objects.filter(
+            ps_time__lte="2014-10-25 15:50:00",
+            ps_time__gte="2014-10-25 15:45:00")
+
+        return {'data': serializers.serialize('json', panel_data, fields=('ps_time_seconds', 'bat_v', 'sp1_i_5', 'sp2_i_6', 'sp3_i_7', 'sp4_i_8'))}
+
+
+class MSUExpGraphView(TemplateView):
+    """Show a MSU Experiment Graph"""
+
+    template_name = 'msu_graph.html'
+
+    def get_context_data(self, **kwargs):
+        msu_data = Telemetry.objects.filter(
+            ps_time__lte="2014-10-25 15:50:00",
+            ps_time__gte="2014-10-25 15:45:00")
+
+        return {'data': serializers.serialize('json', msu_data, fields=('ps_time_seconds', 'msu_temp_1', 'msu_temp_2', 'msu_temp_3', 'msu_temp_4'))}
 

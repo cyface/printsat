@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block headtitle %}: Panel Graph{% endblock %}
+{% block pageheader %}Panel Graph{% endblock %}
+{% block content %}
+    <link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">
+    {% if messages %}
+        {% for message in messages %}
+            {% bootstrap_messages message %}
+        {% endfor %}
+    {% endif %}
+    <div class="col-md-4">
+        <div id="chart">
+            <svg style="height: 500px; width: 800px;"></svg>
+        </div>
+    </div>
+{% endblock %}
+{% block bodybottom %}
+    <script src="http://d3js.org/d3.v3.js" charset="utf-8"></script>
+    <script src="{% static 'js/nv.d3.js' %}"></script>
+    <script>
+        nv.addGraph(function () {
+            var chart = nv.models.lineChart()
+                            .margin({left: 100, bottom: 150})  //Adjust chart margins to give the x-axis some breathing room.
+                            .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+                    ;
+
+            chart.xAxis     //Chart x-axis settings
+                    .axisLabel('Time')
+                    .rotateLabels(-90)
+                    .tickFormat(function (d) {
+                        return d3.time.format('%Y-%m-%d %I:%M:%S')(new Date(d));
+                    });
+
+            chart.yAxis     //Chart y-axis settings
+                    .axisLabel('Current (mA)')
+                    .tickFormat(d3.format('.02f'));
+
+            /* Done setting the chart up? Time to render it!*/
+            var myData = panelData();   //You need data...
+
+            d3.select('#chart svg')    //Select the <svg> element you want to render the chart in.
+                    .datum(myData)         //Populate the <svg> element with chart data...
+                    .call(chart);          //Finally, render the chart!
+
+            nv.utils.windowResize(chart.update);
+
+            return chart;
+        });
+
+        function panelData() {
+            var sp1I5SeriesValues = [];
+            var sp2I6SeriesValues = [];
+            var sp3I7SeriesValues = [];
+            var sp4I8SeriesValues = [];
+            var rawData = {{ data|safe }};
+            for (var i = 0; i < rawData.length; i++) {
+                sp1I5SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.sp1_i_5});
+            }
+            for (i = 0; i < rawData.length; i++) {
+                sp2I6SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.sp2_i_6});
+            }
+            for (i = 0; i < rawData.length; i++) {
+                sp3I7SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.sp3_i_7});
+            }
+            for (i = 0; i < rawData.length; i++) {
+                sp4I8SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.sp4_i_8});
+            }
+            return [
+                {
+                    values: sp1I5SeriesValues,      //values - represents the array of {x,y} data points
+                    key: 'SP1' //key  - the name of the series.
+                },
+                {
+                    values: sp2I6SeriesValues,      //values - represents the array of {x,y} data points
+                    key: 'SP2' //key  - the name of the series.
+                },
+                    {
+                    values: sp3I7SeriesValues,      //values - represents the array of {x,y} data points
+                    key: 'SP3' //key  - the name of the series.
+                },
+                    {
+                    values: sp4I8SeriesValues,      //values - represents the array of {x,y} data points
+                    key: 'SP4' //key  - the name of the series.
+                }
+            ];
+        }
+    </script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $("#nav-panel-graph").addClass("active");
+        });
+    </script>
+{% endblock %}

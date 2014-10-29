@@ -78,7 +78,7 @@ def import_data(telemetry_file_path):
             try:
                 time_value = time.strptime(row.get('ps_time', '01.01.1900 00:00:00'), '%m.%d.%Y %H:%M:%S')
                 row['ps_time'] = time.strftime('%Y-%m-%d %H:%M:%S', time_value)
-                row['ps_time_seconds'] = datetime.datetime.fromtimestamp(float(row.get('ps_time_seconds')))
+#                row['ps_time_seconds'] = datetime.datetime.fromtimestamp(float(row.get('ps_time_seconds')))
                 
                 try:
                     telemetry = Telemetry.objects.get(ps_time=row['ps_time'])
