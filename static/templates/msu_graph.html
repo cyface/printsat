@@ -12,7 +12,7 @@
     {% endif %}
     <div class="col-md-4">
         <div id="chart">
-            <svg style="height: 500px; width: 800px;"></svg>
+            <svg style="height: 600px; width: 900px;"></svg>
         </div>
     </div>
 {% endblock %}
@@ -48,22 +48,23 @@
         });
 
         function msuData() {
+            var timeZoneOffsetSeconds =  new Date().getTimezoneOffset() * 60;
             var msuTemp1SeriesValues = [];
             var msuTemp2SeriesValues = [];
             var msuTemp3SeriesValues = [];
             var msuTemp4SeriesValues = [];
             var rawData = {{ data|safe }};
             for (var i = 0; i < rawData.length; i++) {
-                msuTemp1SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.msu_temp_1});
+                msuTemp1SeriesValues.push({x: (rawData[i].fields.ps_time_seconds + timeZoneOffsetSeconds) * 1000, y: rawData[i].fields.msu_temp_1});
             }
             for (i = 0; i < rawData.length; i++) {
-                msuTemp2SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.msu_temp_3});
+                msuTemp2SeriesValues.push({x: (rawData[i].fields.ps_time_seconds + timeZoneOffsetSeconds) * 1000, y: rawData[i].fields.msu_temp_3});
             }
             for (i = 0; i < rawData.length; i++) {
-                msuTemp3SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.msu_temp_3});
+                msuTemp3SeriesValues.push({x: (rawData[i].fields.ps_time_seconds + timeZoneOffsetSeconds) * 1000, y: rawData[i].fields.msu_temp_3});
             }
             for (i = 0; i < rawData.length; i++) {
-                msuTemp4SeriesValues.push({x: rawData[i].fields.ps_time_seconds * 1000, y: rawData[i].fields.msu_temp_4});
+                msuTemp4SeriesValues.push({x: (rawData[i].fields.ps_time_seconds + timeZoneOffsetSeconds) * 1000, y: rawData[i].fields.msu_temp_4});
             }
             return [
                 {
