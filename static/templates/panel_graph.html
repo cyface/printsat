@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
-{% block headtitle %}: Panel Graph{% endblock %}
-{% block pageheader %}Panel Graph{% endblock %}
+{% block headtitle %}: Panel Current Graph{% endblock %}
+{% block pageheader %}Panel Current Graph{% endblock %}
 {% block content %}
     <link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">
     {% if messages %}
@@ -34,7 +34,7 @@
                     });
 
             chart.yAxis     //Chart y-axis settings
-                    .axisLabel('Current (mA)')
+                    .axisLabel('mA')
                     .tickFormat(d3.format('.02f'));
 
             /* Done setting the chart up? Time to render it!*/
