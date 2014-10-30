@@ -8,7 +8,7 @@ from printsat_app.rest_api import api_router
 from django.conf.urls import patterns, include, url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from printsat_app.views import TimeSeriesView
+from printsat_app.views import PanelSeriesView
 
 urlpatterns = \
     patterns('',
@@ -20,7 +20,7 @@ urlpatterns = \
              url(r'^graph/msu/', MSUExpGraphView.as_view(), name="msu_graph_page"),
              url(r'^api/', include(api_router.urls)),
              url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-             url(r'^data/', TimeSeriesView.as_view()),
+             url(r'^data/', PanelSeriesView.as_view()),
              url(r'^pandas/', PandaView.as_view()),
              url(r'^admin/', include(admin.site.urls)),
     )

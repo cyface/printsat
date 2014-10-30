@@ -9,7 +9,7 @@ from django.conf import settings
 from printsat_app.import_utils import import_data
 import os
 from django.core import serializers
-from rest_pandas import PandasView
+from rest_pandas import PandasView, PandasSerializer
 
 
 class HomePage(TemplateView):
@@ -117,8 +117,15 @@ class PandaView(TemplateView):
     template_name = "pandas.html"
 
 
-class TimeSeriesView(PandasView):
+class PanelSerializer(PandasSerializer):
+    class Meta():
+        model = Telemetry
+        fields = ('id', 'ps_time_seconds', 'sp1_i_5')
+
+
+class PanelSeriesView(PandasView):
     model = Telemetry
+    serializer_class = PanelSerializer
 
     # In response to get(), the underlying Django REST Framework ListAPIView
     # will load the default queryset (self.model.objects.all()) and then pass
