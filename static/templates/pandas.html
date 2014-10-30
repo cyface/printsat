@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block headtitle %}: Pandas!{% endblock %}
+{% block pageheader %}Pandas!{% endblock %}
+{% block content %}
+    <link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">
+    {% if messages %}
+        {% for message in messages %}
+            {% bootstrap_messages message %}
+        {% endfor %}
+    {% endif %}
+    <div class="col-md-4">
+        <div id="chart">
+
+        </div>
+    </div>
+{% endblock %}
+{% block bodybottom %}
+    <script src="{% static 'js/d3.min.js' %}"></script>
+    <script src="{% static 'js/nv.d3.min.js' %}"></script>
+    <script src="{% static 'js/pandas.js' %}"></script>
+    <script>
+        function render(data) {
+            for (var i = 0; i < 5; i++) {
+                $('#chart').append('<p>' + data[i].id + '</p>');
+                for (var j = 0; j < data[i].list.length; j++) {
+                    $('#chart').append('<p>' + data[i].list[j].value + '</p>');
+                }
+            }
+        }
+        $(function () {
+            pandas.get('/data/', render);
+        });
+    </script>
+{% endblock %}

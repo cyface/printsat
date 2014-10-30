@@ -9,6 +9,7 @@ from django.conf import settings
 from printsat_app.import_utils import import_data
 import os
 from django.core import serializers
+from rest_pandas import PandasView
 
 
 class HomePage(TemplateView):
@@ -84,7 +85,13 @@ class PanelGraphView(TemplateView):
             ps_time__lte="2014-10-25 15:50:00",
             ps_time__gte="2014-10-25 15:45:00")
 
-        return {'data': serializers.serialize('json', panel_data, fields=('ps_time_seconds', 'bat_v', 'sp1_i_5', 'sp2_i_6', 'sp3_i_7', 'sp4_i_8'))}
+        return {
+            'data': serializers.serialize('json',
+                                          panel_data,
+                                          fields=(
+                                              'ps_time_seconds', 'bat_v', 'sp1_i_5', 'sp2_i_6', 'sp3_i_7',
+                                              'sp4_i_8'))
+        }
 
 
 class MSUExpGraphView(TemplateView):
@@ -97,5 +104,44 @@ class MSUExpGraphView(TemplateView):
             ps_time__lte="2014-10-25 15:50:00",
             ps_time__gte="2014-10-25 15:45:00")
 
-        return {'data': serializers.serialize('json', msu_data, fields=('ps_time_seconds', 'msu_temp_1', 'msu_temp_2', 'msu_temp_3', 'msu_temp_4'))}
+        return {
+            'data': serializers.serialize('json',
+                                          msu_data,
+                                          fields=(
+                                              'ps_time_seconds', 'msu_temp_1', 'msu_temp_2', 'msu_temp_3',
+                                              'msu_temp_4'))
+        }
 
+
+class PandaView(TemplateView):
+    template_name = "pandas.html"
+
+
+class TimeSeriesView(PandasView):
+    model = Telemetry
+
+    # In response to get(), the underlying Django REST Framework ListAPIView
+    # will load the default queryset (self.model.objects.all()) and then pass
+    # it to the following function.
+
+    def filter_queryset(self, qs):
+        # At this point, you can filter queryset based on self.request or other
+        # settings (useful for limiting memory usage)
+        return qs
+
+    # Then, the included PandasSerializer will serialize the queryset into a
+    # simple list of dicts (using the DRF ModelSerializer).  To customize
+    # which fields to include, subclass PandasSerializer and set the
+    # appropriate ModelSerializer options.  Then, set the serializer_class
+    # property on the view to your PandasSerializer subclass.
+
+    # Next, the PandasSerializer will load the ModelSerializer result into a
+    # DataFrame and pass it to the following function on the view.
+
+    def transform_dataframe(self, dataframe):
+        # Here you can transform the dataframe based on self.request
+        # (useful for pivoting or computing statistics)
+        return dataframe
+
+        # Finally, the included Renderers will process the dataframe into one of
+        # the output formats below.
