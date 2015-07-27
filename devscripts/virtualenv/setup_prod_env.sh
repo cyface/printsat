@@ -5,4 +5,4 @@
 
 virtualenv .env
 . ./.env/bin/activate
-pip install -r requirements.txt
+pip install --use-wheel -r requirements.txt
