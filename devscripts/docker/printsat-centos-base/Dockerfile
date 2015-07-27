@@ -8,7 +8,7 @@ ADD postgresql.repo /etc/yum.repos.d/postgresql.repo
 ADD CentOS-fasttrack.repo /etc/yum.repos.d/CentOS-fasttrack.repo
 
 # Update centos
-RUN yum upgrade -y
+RUN yum upgrade -y && yum update -y
 
 # Install compiler
 RUN yum install -y gcc 
