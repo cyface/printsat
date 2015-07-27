@@ -14,6 +14,9 @@ RUN pip install psycopg2
 # Install Pillow
 RUN yum install -y libjpeg libjpeg-devel zlib zlib-devel libtiff libtiff-devel libfreetype libfreetype-devel littlecms littlecms-devel libwebp libwebp-devel openjpeg openjpeg-devel
 
+# Install C++ (Needed by Pandas)
+RUN yum install -y gcc-c++
+
 # Install virtualenv
 RUN pip install virtualenv
 
