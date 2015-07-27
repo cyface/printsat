@@ -3,5 +3,6 @@ django-bootstrap3
 djangorestframework
 django-filter
 markdown
+pandas
 psycopg2
 rest-pandas
