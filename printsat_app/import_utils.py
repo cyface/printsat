@@ -92,7 +92,8 @@ def import_data(telemetry_file_path):
                     telemetry.save()
                     imported_rows += 1
                 print ("."),
-            except (InvalidOperation, ValueError):
+            except (InvalidOperation, ValueError), e:
+                print e
                 print ("ERROR ON THIS ROW: "),
                 print (row)
                 invalid_rows += 1
