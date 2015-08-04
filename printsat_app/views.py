@@ -1,6 +1,5 @@
 import csv
 from django.views.generic import FormView, TemplateView, View
-from django.db.models import Max, Min
 from django.http import HttpResponse
 from printsat_app.models import Telemetry
 from printsat_app.forms import TelemetryQueryForm, TelemetryUploadForm
@@ -11,14 +10,7 @@ from printsat_app.import_utils import import_data
 import os
 from django.core import serializers
 from rest_pandas import PandasView, PandasSerializer
-
-
-def get_min_telem_date():
-    return Telemetry.objects.aggregate(Min('ps_time')).get('ps_time__min')
-
-
-def get_max_telem_date():
-    return Telemetry.objects.aggregate(Max('ps_time')).get('ps_time__max')
+from .forms import get_min_telem_date, get_max_telem_date
 
 
 class HomePage(TemplateView):
