@@ -1,5 +1,6 @@
 import csv
 from django.views.generic import FormView, TemplateView, View
+from django.db.models import Max, Min
 from django.http import HttpResponse
 from printsat_app.models import Telemetry
 from printsat_app.forms import TelemetryQueryForm, TelemetryUploadForm
@@ -10,6 +11,13 @@ from printsat_app.import_utils import import_data
 import os
 from django.core import serializers
 from rest_pandas import PandasView, PandasSerializer
+
+def get_min_telem_date():
+    return Telemetry.objects.aggregate(Min('ps_time'))
+
+
+def get_max_telem_date():
+    return Telemetry.objects.aggregate(Max('ps_time'))
 
 
 class HomePage(TemplateView):
@@ -27,8 +35,8 @@ class ExtractPage(FormView):
         format_spec_file = file(os.path.join(settings.FORMATS_DIR, format_name + '.csv'))
         format_spec = format_spec_file.readline().rstrip().split(",")
         queryset = Telemetry.objects.filter(
-            ps_time__lte=form.cleaned_data.get("end_datetime", '2014-10-01 10:00:00'),
-            ps_time__gte=form.cleaned_data.get("start_datetime", '2014-09-01 10:00:00')
+            ps_time__lte=form.cleaned_data.get("end_datetime", get_min_telem_date()),
+            ps_time__gte=form.cleaned_data.get("start_datetime", get_max_telem_date())
         ).values_list(*format_spec)
         if len(queryset) < 1:
             messages.error(self.request, 'Query Returned No Telemetry!')
@@ -82,8 +90,8 @@ class PanelGraphView(TemplateView):
 
     def get_context_data(self, **kwargs):
         panel_data = Telemetry.objects.filter(
-            ps_time__lte="2014-10-25 15:50:00",
-            ps_time__gte="2014-10-25 15:45:00")
+            ps_time__lte=get_min_telem_date(),
+            ps_time__gte=get_max_telem_date())
 
         return {
             'data': serializers.serialize('json',
@@ -101,8 +109,8 @@ class MSUExpGraphView(TemplateView):
 
     def get_context_data(self, **kwargs):
         msu_data = Telemetry.objects.filter(
-            ps_time__lte="2014-10-25 15:50:00",
-            ps_time__gte="2014-10-25 15:45:00")
+            ps_time__lte=get_min_telem_date(),
+            ps_time__gte=get_max_telem_date())
 
         return {
             'data': serializers.serialize('json',
@@ -118,7 +126,7 @@ class PandaView(TemplateView):
 
 
 class PanelSerializer(PandasSerializer):
-    class Meta():
+    class Meta:
         model = Telemetry
         fields = ('id', 'ps_time_seconds', 'sp1_i_5')
 
