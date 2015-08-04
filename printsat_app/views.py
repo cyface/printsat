@@ -12,12 +12,13 @@ import os
 from django.core import serializers
 from rest_pandas import PandasView, PandasSerializer
 
+
 def get_min_telem_date():
-    return Telemetry.objects.aggregate(Min('ps_time'))
+    return Telemetry.objects.aggregate(Min('ps_time')).get('ps_time__min')
 
 
 def get_max_telem_date():
-    return Telemetry.objects.aggregate(Max('ps_time'))
+    return Telemetry.objects.aggregate(Max('ps_time')).get('ps_time__max')
 
 
 class HomePage(TemplateView):
@@ -89,9 +90,7 @@ class PanelGraphView(TemplateView):
     template_name = 'panel_graph.html'
 
     def get_context_data(self, **kwargs):
-        panel_data = Telemetry.objects.filter(
-            ps_time__lte=get_min_telem_date(),
-            ps_time__gte=get_max_telem_date())
+        panel_data = Telemetry.objects.filter(ps_time__range=(get_min_telem_date(), get_max_telem_date()))
 
         return {
             'data': serializers.serialize('json',
@@ -108,9 +107,7 @@ class MSUExpGraphView(TemplateView):
     template_name = 'msu_graph.html'
 
     def get_context_data(self, **kwargs):
-        msu_data = Telemetry.objects.filter(
-            ps_time__lte=get_min_telem_date(),
-            ps_time__gte=get_max_telem_date())
+        msu_data = Telemetry.objects.filter(ps_time__range=(get_min_telem_date(), get_max_telem_date()))
 
         return {
             'data': serializers.serialize('json',
