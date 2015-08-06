@@ -1,8 +1,7 @@
 import csv
 from django.views.generic import FormView, TemplateView, View
 from django.http import HttpResponse
-from printsat_app.models import Telemetry
-from printsat_app.forms import TelemetryQueryForm, TelemetryUploadForm
+from .models import Telemetry
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from django.conf import settings
@@ -10,7 +9,7 @@ from printsat_app.import_utils import import_data
 import os
 from django.core import serializers
 from rest_pandas import PandasView, PandasSerializer
-from .forms import get_min_telem_date, get_max_telem_date
+from .forms import TelemetryExtractForm, TelemetryUploadForm, TelemetryGraphForm, get_min_telem_date, get_max_telem_date
 
 
 class HomePage(TemplateView):
@@ -21,7 +20,7 @@ class HomePage(TemplateView):
 class ExtractPage(FormView):
     """Display Extract Page"""
     template_name = "extract.html"
-    form_class = TelemetryQueryForm
+    form_class = TelemetryExtractForm
 
     def form_valid(self, form):
         format_name = form.cleaned_data.get("format_name", "imm_extract")
@@ -76,37 +75,57 @@ class ExtractCSV(View):
         return response
 
 
-class PanelGraphView(TemplateView):
+class PanelGraphView(FormView):
     """Show a Solar Panel Current Graph"""
 
     template_name = 'panel_graph.html'
+    form_class = TelemetryGraphForm
+    success_url = reverse_lazy('panel_graph_page')
+
+    def form_valid(self, form):
+        """
+        If the form is valid, re-render the page with the completed form and new data.
+        """
+        return self.render_to_response(self.get_context_data(form=form))
 
     def get_context_data(self, **kwargs):
-        panel_data = Telemetry.objects.filter(ps_time__range=(get_min_telem_date(), get_max_telem_date()))
+        form = kwargs.get('form')
+
+        if form.is_valid():
+            panel_data = Telemetry.objects.filter(ps_time__range=(form.cleaned_data['start_datetime'], form.cleaned_data['end_datetime']))
+        else:
+            panel_data = Telemetry.objects.filter(ps_time__range=(get_min_telem_date(), get_max_telem_date()))
 
         return {
-            'data': serializers.serialize('json',
-                                          panel_data,
-                                          fields=(
-                                              'ps_time_seconds', 'bat_v', 'sp1_i_5', 'sp2_i_6', 'sp3_i_7',
-                                              'sp4_i_8'))
+            'data': serializers.serialize('json', panel_data, fields=('ps_time_seconds', 'bat_v', 'sp1_i_5', 'sp2_i_6', 'sp3_i_7', 'sp4_i_8')),
+            'form': form
         }
 
 
-class MSUExpGraphView(TemplateView):
+class MSUExpGraphView(FormView):
     """Show a MSU Experiment Graph"""
 
     template_name = 'msu_graph.html'
+    form_class = TelemetryGraphForm
+    success_url = reverse_lazy('msu_graph_page')
+
+    def form_valid(self, form):
+        """
+        If the form is valid, re-render the page with the completed form and new data.
+        """
+        return self.render_to_response(self.get_context_data(form=form))
 
     def get_context_data(self, **kwargs):
-        msu_data = Telemetry.objects.filter(ps_time__range=(get_min_telem_date(), get_max_telem_date()))
+        form = kwargs.get('form')
+
+        if form.is_valid():
+            msu_data = Telemetry.objects.filter(ps_time__range=(form.cleaned_data['start_datetime'], form.cleaned_data['end_datetime']))
+        else:
+            msu_data = Telemetry.objects.filter(ps_time__range=(get_min_telem_date(), get_max_telem_date()))
 
         return {
-            'data': serializers.serialize('json',
-                                          msu_data,
-                                          fields=(
-                                              'ps_time_seconds', 'msu_temp_1', 'msu_temp_2', 'msu_temp_3',
-                                              'msu_temp_4'))
+            'data': serializers.serialize('json', msu_data, fields=('ps_time_seconds', 'msu_temp_1', 'msu_temp_2', 'msu_temp_3', 'msu_temp_4')),
+            'form': form
         }
 
 

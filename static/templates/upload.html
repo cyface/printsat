@@ -9,8 +9,10 @@
         {% endfor %}
     {% endif %}
     <form action="{% url 'upload_page' %}" method="post" enctype="multipart/form-data">
-        <p>{{ form }}</p>
-        <input type="submit" id="submit" value="Submit File"/>
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "arrow-up" %} Upload
+        </button>
         {% csrf_token %}
     </form>
 {% endblock %}

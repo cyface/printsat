@@ -3,14 +3,21 @@
 {% load staticfiles %}
 {% block headtitle %}: MSU Graph{% endblock %}
 {% block pageheader %}MSU Graph{% endblock %}
+{% block extrahead %}<link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">{% endblock %}
 {% block content %}
-    <link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">
     {% if messages %}
         {% for message in messages %}
             {% bootstrap_messages message %}
         {% endfor %}
     {% endif %}
-    <div class="col-md-4">
+    <div class="col-md-12 text-center">
+        <form action="{% url 'msu_graph_page' %}" method="post" class="form-inline printsat-form">
+            {% bootstrap_form form layout='inline' %}
+            <button type="submit" class="btn btn-primary col-md-push-2">
+                {% bootstrap_icon "signal" %} Graph
+            </button>
+            {% csrf_token %}
+        </form>
         <div id="chart">
             <svg style="height: 600px; width: 900px;"></svg>
         </div>
@@ -48,7 +55,7 @@
         });
 
         function msuData() {
-            var timeZoneOffsetSeconds =  new Date().getTimezoneOffset() * 60;
+            var timeZoneOffsetSeconds = new Date().getTimezoneOffset() * 60;
             var msuTemp1SeriesValues = [];
             var msuTemp2SeriesValues = [];
             var msuTemp3SeriesValues = [];

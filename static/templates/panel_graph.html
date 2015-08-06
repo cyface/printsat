@@ -3,14 +3,21 @@
 {% load staticfiles %}
 {% block headtitle %}: Panel Current Graph{% endblock %}
 {% block pageheader %}Panel Current Graph{% endblock %}
+{% block extrahead %}<link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">{% endblock %}
 {% block content %}
-    <link href="{% static 'css/nv.d3.css' %}" rel="stylesheet">
     {% if messages %}
         {% for message in messages %}
             {% bootstrap_messages message %}
         {% endfor %}
     {% endif %}
-    <div class="col-md-4">
+    <div class="col-md-12 text-center">
+        <form action="{% url 'panel_graph_page' %}" method="post" class="form-inline printsat-form">
+            {% bootstrap_form form layout="inline" %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "signal" %} Graph
+            </button>
+            {% csrf_token %}
+        </form>
         <div id="chart">
             <svg style="height: 600px; width: 900px;"></svg>
         </div>
@@ -38,7 +45,7 @@
                     .tickFormat(d3.format('.02f'));
 
             /* Done setting the chart up? Time to render it!*/
-            var myData = panelData();   //You need data...
+            var myData = panelData();
 
             d3.select('#chart svg')    //Select the <svg> element you want to render the chart in.
                     .datum(myData)         //Populate the <svg> element with chart data...
@@ -50,7 +57,7 @@
         });
 
         function panelData() {
-            var timeZoneOffsetSeconds =  new Date().getTimezoneOffset() * 60;
+            var timeZoneOffsetSeconds = new Date().getTimezoneOffset() * 60;
             var sp1I5SeriesValues = [];
             var sp2I6SeriesValues = [];
             var sp3I7SeriesValues = [];
@@ -77,11 +84,11 @@
                     values: sp2I6SeriesValues,      //values - represents the array of {x,y} data points
                     key: 'SP2' //key  - the name of the series.
                 },
-                    {
+                {
                     values: sp3I7SeriesValues,      //values - represents the array of {x,y} data points
                     key: 'SP3' //key  - the name of the series.
                 },
-                    {
+                {
                     values: sp4I8SeriesValues,      //values - represents the array of {x,y} data points
                     key: 'SP4' //key  - the name of the series.
                 }

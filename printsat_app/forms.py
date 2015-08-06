@@ -31,7 +31,7 @@ class TelemetryUploadForm(ModelForm):
         return cleaned_data
 
 
-class TelemetryQueryForm(Form):
+class TelemetryExtractForm(Form):
     """Query Telem With This Form"""
 
     FORMAT_NAME_CHOICES = (
@@ -55,3 +55,17 @@ class TelemetryQueryForm(Form):
                               initial="imm_extract",
                               help_text="Extract format, which determines extract columns.",
                               widget=RadioSelect())
+
+
+class TelemetryGraphForm(Form):
+    """Query Telem With This Form"""
+
+    start_datetime = DateTimeField(label="Start Date/Time",
+                                   initial=get_min_telem_date(),
+                                   help_text="Start date/time in YYYY-MM-DD HH:MM:SS format.",
+                                   widget=DateTimeInput())
+
+    end_datetime = DateTimeField(label="End Date/Time",
+                                 initial=get_max_telem_date(),
+                                 help_text="End date/time in YYYY-MM-DD HH:MM:SS format.",
+                                 widget=DateTimeInput())

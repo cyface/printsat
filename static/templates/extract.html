@@ -9,13 +9,11 @@
         {% endfor %}
     {% endif %}
     <div class="col-md-4">
-        <form action="{% url 'extract_page' %}" method="post">
-            {% bootstrap_form form %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">
-                    {% bootstrap_icon "arrow-down" %} Extract
-                </button>
-            {% endbuttons %}
+        <form action="{% url 'extract_page' %}" method="post" class="form-inline">
+            {% bootstrap_form form layout='inline' %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "arrow-down" %} Extract
+            </button>
             {% csrf_token %}
         </form>
     </div>
