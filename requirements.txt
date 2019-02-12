@@ -1,4 +1,4 @@
-django>=1.8.19,<1.9
+django>=1.8.19,<2
 django-bootstrap3
 djangorestframework
 django-filter
